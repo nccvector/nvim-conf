@@ -69,6 +69,23 @@ local setup = {
   },
 }
 
+-- Functions
+function BufferFold()
+  filetype = vim.bo.filetype
+
+  if filetype == 'python' or filetype == 'lua' or filetype == 'yaml' then
+    vim.o.foldmethod = 'indent'
+  end
+
+  if filetype == 'cpp' or filetype == 'json' then
+    vim.o.syntax = true
+    vim.o.foldmethod = 'syntax'
+  end
+
+  print("Detected filetype", filetype)
+end
+
+-- Options
 local opts = {
   mode = "n", -- NORMAL mode
   prefix = "<leader>",
@@ -78,23 +95,48 @@ local opts = {
   nowait = true, -- use `nowait` when creating keymaps
 }
 
+-- Mappings
 local mappings = {
   ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
-  ["b"] = {
-    "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
-    "Buffers",
-  },
   ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
-  ["w"] = { "<cmd>w!<CR>", "Save" },
   ["q"] = { "<cmd>q!<CR>", "Quit" },
   ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
   ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
-  ["f"] = {
-    "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>",
-    "Find files",
-  },
   ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
   ["P"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
+
+  w = {
+    name = 'Window',
+    l = { '<C-w>l', 'Jump Right' },
+    h = { '<C-w>h', 'Jump Left' },
+    k = { '<C-w>k', 'Jump Up' },
+    j = { '<C-w>j', 'Jump Down' },
+    v = { '<C-w>v', 'Split vertical' },
+    s = { '<C-w>s', 'Split horizontal' },
+    d = { '<C-w>q', 'Close window' },
+  },
+
+  b = {
+    name = 'Buffer',
+    f = { function() BufferFold() end, 'Fold' },
+    b = { ':Telescope buffers<cr>', 'Show Buffer List' },
+    n = { ':bnext<cr>', 'Next Buffer' },
+    p = { ':bprevious<cr>', 'Previous Buffer' },
+    d = { ':bprevious|bdelete #<cr>', 'Delete Buffer' },  -- Move previous buffer in current window and then delete current
+    H = { '<C-w><S-h><cr>', 'Move buffer left' },
+    L = { '<C-w><S-l><cr>', 'Move buffer right' },
+    J = { '<C-w><S-j><cr>', 'Move buffer down' },
+    K = { '<C-w><S-k><cr>', 'Move buffer up' },
+  },
+
+  f = {
+    name = 'File',
+    f = { "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>", "Find File" },
+    r = { ':Telescope oldfiles<cr>', 'Recent Files (Telescope)' },
+    t = { ':Telescope file_browser<cr>', 'Toggle File Explorer (Telescope)' },
+    s = { ':w<cr>', 'Save' },
+    n = { 'New File (Not Implemented)' }
+  },
 
   p = {
     name = "Packer",
@@ -159,6 +201,7 @@ local mappings = {
       "Workspace Symbols",
     },
   },
+
   s = {
     name = "Search",
     b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
