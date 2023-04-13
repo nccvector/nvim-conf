@@ -85,6 +85,11 @@ function BufferFold()
   print("Detected filetype", filetype)
 end
 
+function FormatAndSave()
+  vim.lsp.buf.format{async=true}
+  vim.api.nvim_command('write')
+end
+
 -- Options
 local opts = {
   mode = "n", -- NORMAL mode
@@ -103,8 +108,8 @@ local mappings = {
   ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
   ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
   ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
-  ["P"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
 
+  ["P"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
   w = {
     name = 'Window',
     l = { '<C-w>l', 'Jump Right' },
@@ -134,7 +139,7 @@ local mappings = {
     f = { "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>", "Find File" },
     r = { ':Telescope oldfiles<cr>', 'Recent Files (Telescope)' },
     t = { ':Telescope file_browser<cr>', 'Toggle File Explorer (Telescope)' },
-    s = { ':w<cr>', 'Save' },
+    s = { function() FormatAndSave() end, 'Save' },
     n = { 'New File (Not Implemented)' }
   },
 
