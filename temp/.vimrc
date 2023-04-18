@@ -16,6 +16,8 @@ set number
 set hlsearch
 set incsearch
 set ignorecase
+set splitright
+set splitbelow
 
 " Setting <space> as leader
 let g:mapleader = "\<Space>"
