@@ -14,6 +14,8 @@ set scrolloff=10
 colorscheme gruvbox
 set number
 set hlsearch
+set incsearch
+set ignorecase
 
 " Setting <space> as leader
 let g:mapleader = "\<Space>"
