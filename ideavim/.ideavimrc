@@ -1,12 +1,12 @@
-source ~/.intellimacs/spacemacs.vim
+source ~/.config/nvim/ideavim/.intellimacs/spacemacs.vim
 
 " (Optional) Enable other Intellimacs modules
-source ~/.intellimacs/extra.vim
-source ~/.intellimacs/major.vim
-source ~/.intellimacs/hybrid.vim
+source ~/.config/nvim/ideavim/.intellimacs/extra.vim
+source ~/.config/nvim/ideavim/.intellimacs/major.vim
+source ~/.config/nvim/ideavim/.intellimacs/hybrid.vim
 
 " (Optional) Enable which-key plugin
-source ~/.intellimacs/which-key.vim
+source ~/.config/nvim/ideavim/.intellimacs/which-key.vim
 
 " Custom options
 set scrolloff=10
