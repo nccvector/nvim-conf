@@ -12,3 +12,6 @@ source ~/.config/nvim/ideavim/.intellimacs/which-key.vim
 set scrolloff=10
 nnoremap [m :action MethodUp<CR>
 nnoremap ]m :action MethodDown<CR>
+
+nnoremap za :action ExpandRegion<CR>
+nnoremap zz :action CollapseRegion<CR>
